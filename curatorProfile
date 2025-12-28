@@ -1,0 +1,106 @@
+import React from 'react';
+import { StyleSheet, View, Text, Image, ScrollView, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; // Für kinderfreundliche Icons
+
+const { width } = Dimensions.get('window');
+
+export default function CuratorProfile({ curator, onBack }) {
+  // Beispiel-Daten für die Grid-Ansicht der Videos
+  const dummyVideos = [
+    { id: '1', thumbnail: 'https://via.placeholder.com/150', likes: '1.2k' },
+    { id: '2', thumbnail: 'https://via.placeholder.com/150', likes: '850' },
+    { id: '3', thumbnail: 'https://via.placeholder.com/150', likes: '2.4k' },
+    { id: '4', thumbnail: 'https://via.placeholder.com/150', likes: '910' },
+  ];
+
+  return (
+    <ScrollView style={styles.container}>
+      {/* Header mit Back-Button */}
+      <TouchableOpacity style={styles.backButton} onPress={onBack}>
+        <Ionicons name="arrow-back" size={28} color="#333" />
+      </TouchableOpacity>
+
+      {/* Profil Header Card */}
+      <View style={styles.headerCard}>
+        <View style={styles.avatarContainer}>
+          <Image source={{ uri: curator.avatar_url }} style={styles.avatar} />
+          <View style={styles.verifiedBadge}>
+            <Ionicons name="checkmark-circle" size={24} color="#4CAF50" />
+          </View>
+        </View>
+        
+        <Text style={styles.username}>{curator.username}</Text>
+        
+        {/* Badges Section */}
+        <View style={styles.badgeRow}>
+          <View style={[styles.badge, { backgroundColor: '#FFF9C4' }]}>
+            <Text>⭐ {t.topTeacher}</Text>
+          </View>
+          <View style={[styles.badge, { backgroundColor: '#C8E6C9' }]}>
+            <Text>🌿 {t.natureExpert}</Text>
+          </View>
+        </View>
+
+        {/* Stats */}
+        <View style={styles.statsContainer}>
+          <View style={styles.statBox}>
+            <Text style={styles.statNumber}>{curator.total_views}</Text>
+            <Text style={styles.statLabel}>{t.views}</Text>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statBox}>
+            <Text style={styles.statNumber}>{curator.kids_reached}</Text>
+            <Text style={styles.statLabel}>{t.reached}</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Video Grid */}
+      <Text style={styles.sectionTitle}>{t.videos}</Text>
+      <View style={styles.videoGrid}>
+        {dummyVideos.map(video => (
+          <TouchableOpacity key={video.id} style={styles.videoThumbnail}>
+            <Image source={{ uri: video.thumbnail }} style={styles.thumbnailImg} />
+            <View style={styles.likeTag}>
+              <Text style={styles.likeText}>❤️ {video.likes}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#F0F4F8' },
+  backButton: { marginTop: 50, marginLeft: 20, marginBottom: 10 },
+  headerCard: {
+    backgroundColor: 'white',
+    margin: 20,
+    borderRadius: 30,
+    padding: 20,
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  avatarContainer: { position: 'relative' },
+  avatar: { width: 120, height: 120, borderRadius: 60, borderWidth: 4, borderColor: '#FFEBEE' },
+  verifiedBadge: { position: 'absolute', bottom: 5, right: 5, backgroundColor: 'white', borderRadius: 12 },
+  username: { fontSize: 24, fontWeight: 'bold', marginTop: 15, color: '#2C3E50' },
+  badgeRow: { flexDirection: 'row', gap: 10, marginTop: 15 },
+  badge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20 },
+  statsContainer: { flexDirection: 'row', marginTop: 25, borderTopWidth: 1, borderTopColor: '#EEE', paddingTop: 20 },
+  statBox: { alignItems: 'center', flex: 1 },
+  statNumber: { fontSize: 18, fontWeight: 'bold', color: '#FF9800' },
+  statLabel: { fontSize: 12, color: '#7F8C8D', marginTop: 4 },
+  statDivider: { width: 1, height: '100%', backgroundColor: '#EEE' },
+  sectionTitle: { fontSize: 20, fontWeight: 'bold', marginLeft: 25, marginBottom: 15 },
+  videoGrid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 15, justifyContent: 'space-between' },
+  videoThumbnail: { width: (width - 50) / 2, height: 200, backgroundColor: '#DDD', borderRadius: 20, marginBottom: 15, overflow: 'hidden' },
+  thumbnailImg: { width: '100%', height: '100%' },
+  likeTag: { position: 'absolute', bottom: 10, left: 10, backgroundColor: 'rgba(0,0,0,0.5)', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 10 },
+  likeText: { color: 'white', fontSize: 12, fontWeight: 'bold' }
+});
