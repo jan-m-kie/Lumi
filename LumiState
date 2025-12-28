@@ -1,0 +1,7 @@
+// Berechnet das Level des Lumis basierend auf den gesammelten Punkten
+const getLumiLevel = (points) => {
+  if (points < 10) return { stage: 'Egg', scale: 0.5, color: '#E0E0E0' };
+  if (points < 50) return { stage: 'Baby', scale: 0.8, color: '#FFEB3B' };
+  if (points < 200) return { stage: 'Teen', scale: 1.2, color: '#4CAF50' };
+  return { stage: 'Mega-Lumi', scale: 1.8, color: '#9C27B0' };
+};
