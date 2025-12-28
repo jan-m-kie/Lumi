@@ -5,7 +5,12 @@ const translations = {
     reached: "Kids reached",
     topTeacher: "Top Teacher",
     natureExpert: "Nature Expert",
-    back: "Back"
+    back: "Back",
+    parentGateTitle: "Parents Only",
+    parentGateDesc: "Please solve this to continue:",
+    cancel: "Cancel",
+    confirm: "Confirm",
+    wrongAnswer: "That was almost right! Try again."
   },
   de: {
     videos: "Videos",
@@ -13,7 +18,12 @@ const translations = {
     reached: "Kinder erreicht",
     topTeacher: "Top Lehrer",
     natureExpert: "Natur-Experte",
-    back: "Zurück"
+    back: "Zurück",
+    parentGateTitle: "Nur für Eltern",
+    parentGateDesc: "Löse diese Aufgabe, um fortzufahren:",
+    cancel: "Abbrechen",
+    confirm: "Bestätigen",
+    wrongAnswer: "Fast richtig! Versuch es noch einmal."
   }
 };
 
